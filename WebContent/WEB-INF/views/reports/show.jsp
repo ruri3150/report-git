@@ -34,13 +34,24 @@
                             <td>
                                 <fmt:formatDate value="${report.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" />
                             </td>
+                            <tr>
+                            <th>いいね！</th>
+                                <td><c:out value="${report.like_count}" /></td>
                         </tr>
                     </tbody>
                 </table>
 
                 <c:if test="${sessionScope.login_employee.id == report.employee.id}">
+
                     <p><a href="<c:url value="/reports/edit?id=${report.id}" />">この日報を編集する</a></p>
                 </c:if>
+
+                <!-- 自分以外の投稿ならいいねリンクを表示 -->
+                <c:if test="${sessionScope.login_employee.id != report.employee.id}">
+
+                <p><a href="<c:url value="/likes/create?id=${report.id}" />">この日報にいいね！する</a></p>
+                </c:if>
+
             </c:when>
             <c:otherwise>
                 <h2>お探しのデータは見つかりませんでした。</h2>
